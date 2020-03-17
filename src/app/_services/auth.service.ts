@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const AUTH_API = 'http://localhost:3000/users/';
+const AUTH_API = 'http://localhost:4000/users/';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -15,12 +15,15 @@ const httpOptions = {
 export class AuthService {
   constructor(private http: HttpClient) { }
   login(credentials): Observable<any> {
-    return this.http.post(AUTH_API + 'authenticate',credentials);
+    return this.http.post(AUTH_API + 'authenticate', {
+      email: credentials.username,
+      password: credentials.password
+    }, httpOptions);
   }
 
   register(user): Observable<any> {
     return this.http.post(AUTH_API + 'register', {
-     name: user.username,
+      name: user.username,
       email: user.email,
       password: user.password
     }, httpOptions);

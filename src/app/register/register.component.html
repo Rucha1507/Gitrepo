@@ -8,7 +8,7 @@
     <form
       *ngIf="!isSuccessful"
       name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
+      (ngSubmit)="onSubmit()"
       #f="ngForm"
       novalidate
     >
